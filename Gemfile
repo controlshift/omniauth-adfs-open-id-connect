@@ -2,5 +2,5 @@
 
 source "https://rubygems.org"
 
-# Specify your gem's dependencies in omniauth-adfs.gemspec
+# Specify your gem's dependencies in omniauth-adfs-open-id-connect.gemspec
 gemspec
