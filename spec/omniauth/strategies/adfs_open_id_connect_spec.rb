@@ -3,12 +3,12 @@
 require 'spec_helper'
 
 describe OmniAuth::Strategies::AdfsOpenIdConnect do
-  let(:request) { double('Request', :params => {}, :cookies => {}, :env => {}) }
-  let(:app) {
+  let(:request) { double('Request', params: {}, cookies: {}, env: {}) }
+  let(:app) do
     lambda do
-      [200, {}, ["Hello."]]
+      [200, {}, ['Hello.']]
     end
-  }
+  end
 
   before do
     OmniAuth.config.test_mode = true
@@ -22,7 +22,11 @@ describe OmniAuth::Strategies::AdfsOpenIdConnect do
     let(:options) { @options || {} }
 
     subject do
-      OmniAuth::Strategies::AdfsOpenIdConnect.new(app, {client_id: 'id', client_secret: 'secret', base_adfs_url: 'https://login.foo.com'}.merge(options))
+      OmniAuth::Strategies::AdfsOpenIdConnect.new(
+        app,
+        { client_id: 'id', client_secret: 'secret', base_adfs_url: 'https://login.foo.com' }
+        .merge(options)
+      )
     end
 
     describe '#client' do
@@ -42,6 +46,5 @@ describe OmniAuth::Strategies::AdfsOpenIdConnect do
         expect(subject.client.options[:token_url]).to eql('https://login.foo.com/adfs/oauth2/token')
       end
     end
-
   end
 end

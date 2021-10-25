@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 # frozen_string_literal: true
 
 lib = File.expand_path('lib', __dir__)
@@ -9,8 +8,8 @@ Gem::Specification.new do |s|
   s.name                  = 'omniauth-adfs-open-id-connect'
   s.version               = OmniAuth::Adfs::OpenId::Connect::VERSION
   s.summary               = 'OAuth 2 authentication with Active Directory Federations Services OpenId Connect.'
-  s.authors               = [ 'Diego Marcet' ]
-  s.email                 = [ 'systems@controlshiftlabs.com' ]
+  s.authors               = ['Diego Marcet']
+  s.email                 = ['systems@controlshiftlabs.com']
   s.homepage              = 'https://github.com/controlshift/omniauth-adfs-open-id-connect'
   s.license               = 'MIT'
 
