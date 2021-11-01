@@ -56,8 +56,16 @@ module OmniAuth
       #
       def raw_info
         if @raw_info.nil?
-          id_token_data   = ::JWT.decode(access_token.params['id_token'], nil, false).first rescue {}
-          auth_token_data = ::JWT.decode(access_token.token,              nil, false).first rescue {}
+          id_token_data = begin
+            ::JWT.decode(access_token.params['id_token'], nil, false).first
+          rescue StandardError
+            # no-op, ignore the error if token decoding fails
+          end
+          auth_token_data = begin
+            ::JWT.decode(access_token.token, nil, false).first
+          rescue StandardError
+            # no-op, ignore the error if token decoding fails
+          end
 
           id_token_data.merge!(auth_token_data)
           @raw_info = id_token_data
