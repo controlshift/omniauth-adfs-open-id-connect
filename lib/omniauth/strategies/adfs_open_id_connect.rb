@@ -40,6 +40,31 @@ module OmniAuth
       def callback_url
         full_host + script_name + callback_path
       end
+
+      # The omniauth-azure-activedirectory-v2 gem implements the raw_info method as follows.
+      # It's unclear if this is required for AD FS, but will implement with the fallback on
+      # the ID token just as a precaution and we can later remove and use access_token.token directly
+      # if it's not needed.
+      #
+      # Some account types from Microsoft seem to only have a decodable ID token,
+      # with JWT unable to decode the access token. Information is limited in those
+      # cases. Other account types provide an expanded set of data inside the auth
+      # token, which does decode as a JWT.
+      #
+      # Merge the two, allowing the expanded auth token data to overwrite the ID
+      # token data if keys collide, and use this as raw info.
+      #
+      def raw_info
+        if @raw_info.nil?
+          id_token_data   = ::JWT.decode(access_token.params['id_token'], nil, false).first rescue {}
+          auth_token_data = ::JWT.decode(access_token.token,              nil, false).first rescue {}
+
+          id_token_data.merge!(auth_token_data)
+          @raw_info = id_token_data
+        end
+
+        @raw_info
+      end
     end
   end
 end
