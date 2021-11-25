@@ -20,7 +20,7 @@ module OmniAuth
       end
 
       uid do
-        raw_info['oid']
+        raw_info['unique_name']
       end
 
       info do

@@ -4,7 +4,7 @@ module OmniAuth
   module Adfs
     module OpenId
       module Connect
-        VERSION = '0.0.4'
+        VERSION = '0.0.5'
       end
     end
   end
